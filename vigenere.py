@@ -1,50 +1,35 @@
-def encrypt_vigenere(plaintext, keyword):
-    """
-    Encrypts plaintext using a Vigenere cipher.
-    >>> encrypt_vigenere("PYTHON", "A")
-    'PYTHON'
-    >>> encrypt_vigenere("python", "a")
-    'python'
-    >>> encrypt_vigenere("ATTACKATDAWN", "LEMON")
-    'LXFOPVEFRNHR'
-    """
-    ciphertext = ''
-    for index, ch in enumerate(plaintext):
-        if 'a' <= ch <= 'z' or 'A' <= ch <= 'Z':
-            shift = ord(keyword[index % len(keyword)])
-            shift -= ord('a') if 'a' <= ch <= 'z' else ord('A')
-            code = ord(ch) + shift
-            if 'a' <= ch <= 'z' and code > ord('z'):
-                code -= 26
-            elif 'A' <= ch <= 'Z' and code > ord('Z'):
-                code -= 26
-            ciphertext += chr(code)
-        else:
-            chiphertext += ch
-    return ciphertext
+def comparator(value, key):
+    len_key = len(key)
+    dic = {}
+    iter = 0
+    full = 0
 
+    for i in value:
+        dic[full] = [i,key[iter]]
+        full = full + 1
+        iter = iter +1
+        if (iter >= len_key):
+            iter = 0 
+    return dic 
 
-def decrypt_vigenere(ciphertext, keyword):
-    """
-    Decrypts a ciphertext using a Vigenere cipher.
-    >>> decrypt_vigenere("PYTHON", "A")
-    'PYTHON'
-    >>> decrypt_vigenere("python", "a")
-    'python'
-    >>> decrypt_vigenere("LXFOPVEFRNHR", "LEMON")
-    'ATTACKATDAWN'
-    """
-    plaintext = ''
-    for index, ch in enumerate(ciphertext):
-        if 'a' <= ch <= 'z' or 'A' <= ch <= 'Z':
-            shift = ord(keyword[index % len(keyword)])
-            shift -= ord('a') if 'a' <= ch <= 'z' else ord('A')
-            code = ord(ch) - shift
-            if 'a' <= ch <= 'z' and code < ord('a'):
-                code += 26
-            elif 'A' <= ch <= 'Z' and code < ord('A'):
-                code += 26
-            plaintext += chr(code)
-        else:
-            plaintext += ch
-    return plaintext
+def encrypt_vigenere(value, key):
+    dic = comparator(value, key)
+    print 'Compare encrypt_vigenere', dic
+    lis = []
+    d = form_dict()
+
+    for v in dic:
+        go = (dic[v][0]+dic[v][1]) % len(d)
+        lis.append(go) 
+    return lis
+
+def decrypt_vigenere(list_in):
+    list_code = []
+    lent = len(list_in)
+    d = form_dict() 
+
+    for i in range(lent):
+        for value in d:
+            if list_in[i] == value:
+               list_code.append(d[value]) 
+    return list_code
