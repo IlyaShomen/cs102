@@ -3,6 +3,7 @@ import random
 from pip._vendor.distlib.compat import raw_input
 from pip._vendor.msgpack.fallback import xrange
 
+
 def gcd(a, b):
     """
     Euclid's algorithm for determining the greatest common divisor.
@@ -111,9 +112,6 @@ def decrypt(pk, ciphertext):
 
 
 if __name__ == '__main__':
-    '''
-    Detect if the script is being run directly by the user
-    '''
     print("RSA Encrypter/ Decrypter")
     p = int(raw_input("Enter a prime number (17, 19, 23, etc): "))
     q = int(raw_input("Enter another prime number (Not one you entered above): "))
@@ -123,7 +121,12 @@ if __name__ == '__main__':
     message = raw_input("Enter a message to encrypt with your private key: ")
     encrypted_msg = encrypt(private, message)
     print("Your encrypted message is: ")
-    print (''.join(map(lambda x: str(x), encrypted_msg)))
+    print(''.join(map(lambda x: str(x), encrypted_msg)))
     print("Decrypting message with public key ", public, " . . .")
     print("Your message is:")
     print(decrypt(public, encrypted_msg))
+
+    if __name__ == "__main__":
+        import doctest
+
+        doctest.testmod()
